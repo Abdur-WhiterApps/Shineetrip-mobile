@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class CountryCodeDropdown extends StatefulWidget {
-  const CountryCodeDropdown({super.key});
+class CountryDropdown extends StatefulWidget {
+  const CountryDropdown({super.key});
 
   @override
-  State<CountryCodeDropdown> createState() => _CountryCodeDropdownState();
+  State<CountryDropdown> createState() => _CountryDropdownState();
 }
 
-class _CountryCodeDropdownState extends State<CountryCodeDropdown> {
+class _CountryDropdownState extends State<CountryDropdown> {
   String selected = "+91";
 
-  final List<Map<String, String>> countries = [
-    {"code": "+91", "name": "India"},
-    {"code": "+1", "name": "USA"},
-    {"code": "+44", "name": "UK"},
+  final countries = [
+    {"code": "+91", "label": "🇮🇳 India (+91)"},
+    {"code": "+1", "label": "🇺🇸 USA (+1)"},
+    {"code": "+44", "label": "🇬🇧 UK (+44)"},
   ];
 
   @override
@@ -22,16 +22,18 @@ class _CountryCodeDropdownState extends State<CountryCodeDropdown> {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
+        color: const Color(0xFFF9FAFB),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: selected,
           isExpanded: true,
+          icon: const Icon(Icons.keyboard_arrow_down),
           items: countries.map((c) {
             return DropdownMenuItem(
               value: c['code'],
-              child: Text("🇮🇳 ${c['name']} (${c['code']})"),
+              child: Text(c['label']!),
             );
           }).toList(),
           onChanged: (v) {
