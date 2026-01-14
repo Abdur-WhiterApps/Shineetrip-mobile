@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/widgets/stat_row.dart';
+import '../../hotel/view/hotel_list_view.dart';
 import '../bloc/home_bloc.dart';
 import '../bloc/home_event.dart';
 import '../bloc/home_state.dart';
@@ -20,6 +21,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final TextEditingController cityCtrl = TextEditingController(text: "Manali");
+  final TextEditingController checkInCtrl =
+  TextEditingController(text: "Fri, 21 Nov 2025");
+  final TextEditingController checkOutCtrl =
+  TextEditingController(text: "Fri, 21 Nov 2025");
+  final TextEditingController roomCtrl =
+  TextEditingController(text: "1 Room, 2 Adult");
+  bool _showHotelSearch = false;
   @override
   void initState() {
     super.initState();
@@ -44,8 +53,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
 
 
-                _glassFeatureSection(),
-
+                _showHotelSearch ? _hotelSearchWidget() : _glassFeatureSection(),
                 const SizedBox(height: 16),
 
 
@@ -150,13 +158,23 @@ class _HomeViewState extends State<HomeView> {
         physics: const NeverScrollableScrollPhysics(),
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
-        children: const [
-          GlassFeatureCard(icon: Icons.hotel, title: "Hotels"),
-          GlassFeatureCard(icon: Icons.flight, title: "Flights"),
-          GlassFeatureCard(icon: Icons.train, title: "Trains"),
-          GlassFeatureCard(icon: Icons.directions_bus, title: "Bus"),
-          GlassFeatureCard(icon: Icons.event, title: "Events"),
-          GlassFeatureCard(icon: Icons.card_travel, title: "Packages"),
+        children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _showHotelSearch = true;
+              });
+            },
+            child: const GlassFeatureCard(
+              icon: Icons.hotel,
+              title: "Hotels",
+            ),
+          ),
+          const GlassFeatureCard(icon: Icons.flight, title: "Flights"),
+          const GlassFeatureCard(icon: Icons.train, title: "Trains"),
+          const GlassFeatureCard(icon: Icons.directions_bus, title: "Bus"),
+          const GlassFeatureCard(icon: Icons.event, title: "Events"),
+          const GlassFeatureCard(icon: Icons.card_travel, title: "Packages"),
         ],
       ),
     );
@@ -282,6 +300,117 @@ class _HomeViewState extends State<HomeView> {
         BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
       ],
+    );
+  }
+  Widget _hotelSearchWidget() {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/banner.jpg'),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        children: [
+          _searchInputTile(
+            label: "CITY, AREA OR PROPERTY",
+            controller: cityCtrl,
+            icon: Icons.location_on,
+          ),
+          const SizedBox(height: 12),
+
+          _searchInputTile(
+            label: "CHECK-IN",
+            controller: checkInCtrl,
+            icon: Icons.calendar_today,
+            readOnly: true,
+            onTap: () {
+            },
+          ),
+          const SizedBox(height: 12),
+
+          _searchInputTile(
+            label: "CHECK-OUT",
+            controller: checkOutCtrl,
+            icon: Icons.calendar_today,
+            readOnly: true,
+            onTap: () {
+            },
+          ),
+          const SizedBox(height: 12),
+
+          _searchInputTile(
+            label: "ROOM & GUEST",
+            controller: roomCtrl,
+            icon: Icons.people,
+            readOnly: true,
+            onTap: () {
+            },
+          ),
+
+          const SizedBox(height: 16),
+          _priceRow(),
+          const SizedBox(height: 16),
+
+          PrimaryButton(
+            title: "Search",
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HotelListView(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _searchInputTile({
+    required String label,
+    required TextEditingController controller,
+    required IconData icon,
+    bool readOnly = false,
+    VoidCallback? onTap,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: TextField(
+        controller: controller,
+        readOnly: readOnly,
+        onTap: onTap,
+        decoration: InputDecoration(
+          icon: Icon(icon, color: const Color(0xFFC9A24D)),
+          labelText: label,
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+
+  Widget _priceRow() {
+    final prices = ["₹0 - ₹1500", "₹1500 - ₹2500", "₹2500 - ₹5000", "₹5000+"];
+
+    return Wrap(
+      spacing: 8,
+      children: prices
+          .map(
+            (p) => Chip(
+          label: Text(p),
+          backgroundColor: Colors.white,
+        ),
+      )
+          .toList(),
     );
   }
 }
