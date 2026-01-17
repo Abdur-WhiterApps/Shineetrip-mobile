@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shineetrip_mobile/features/payment/view/payment_done_view.dart';
 import '../../../core/widgets/coupon_card.dart';
 
 class BookHotelView extends StatelessWidget {
@@ -283,7 +284,12 @@ class BookHotelView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => PaymentDoneView()),
+                  );
+                },
                 child: const Text(
                   "Confirm & Pay",
                   style: TextStyle(
