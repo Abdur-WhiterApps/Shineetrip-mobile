@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shineetrip_mobile/core/widgets/primary_button.dart';
+import 'package:shineetrip_mobile/features/hotel/view/hotel_detail_view.dart';
 
 class HotelCard extends StatelessWidget {
   const HotelCard({super.key});
@@ -17,7 +18,7 @@ class HotelCard extends StatelessWidget {
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.asset(
-              "assets/images/hotel.jpg",
+              "assets/images/room.png",
               height: 180,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -69,11 +70,18 @@ class HotelCard extends StatelessWidget {
 
                 PrimaryButton(
                   title: "Book Now",
-                  onTap: (){},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const HotelDetailView(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

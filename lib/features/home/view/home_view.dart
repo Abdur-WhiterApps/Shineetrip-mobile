@@ -77,19 +77,19 @@ class _HomeViewState extends State<HomeView> {
                     scrollDirection: Axis.horizontal,
                     children: const [
                       DestinationCard(
-                        image: 'assets/images/newyork.jpg',
+                        image: 'assets/images/popular.png',
                         title: 'New York',
                         subtitle: 'The glorious city of dreams',
                       ),
                       SizedBox(width: 12),
                       DestinationCard(
-                        image: 'assets/images/paris.jpg',
+                        image: 'assets/images/Hotelgs.jpg',
                         title: 'Paris',
                         subtitle: 'City of love',
                       ),
                       SizedBox(width: 12),
                       DestinationCard(
-                        image: 'assets/images/dubai.jpg',
+                        image: 'assets/images/hotel.jpg',
                         title: 'Dubai',
                         subtitle: 'Luxury & skyline',
                       ),
@@ -134,7 +134,7 @@ class _HomeViewState extends State<HomeView> {
           padding: EdgeInsets.only(right: 16),
           child: CircleAvatar(
             radius: 16,
-            backgroundImage: AssetImage('assets/images/profile.png'),
+            backgroundImage: AssetImage('assets/images/TajHotel.jpg'),
           ),
         ),
       ],
@@ -147,7 +147,7 @@ class _HomeViewState extends State<HomeView> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         image: const DecorationImage(
-          image: AssetImage('assets/images/banner.jpg'),
+          image: AssetImage('assets/images/hotel.jpg'),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(20),
@@ -308,7 +308,7 @@ class _HomeViewState extends State<HomeView> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         image: const DecorationImage(
-          image: AssetImage('assets/images/banner.jpg'),
+          image: AssetImage('assets/images/hotel.jpg'),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(20),
